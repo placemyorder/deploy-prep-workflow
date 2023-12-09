@@ -19,7 +19,7 @@ runs:
       - name: Autoincrement version
         shell: pwsh
         run: |
-          ./autoincremenversion.ps1 -versionFile './${{ inputs.versionFile }}' -branch ${{ env.branch }}
+          ./autoincrementversion.ps1 -versionFile './${{ inputs.versionFile }}' -branch ${{ env.branch }}
       - name: Fetch current version
         shell: bash
         run: |
