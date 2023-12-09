@@ -21,8 +21,9 @@ runs:
         run: |
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV    
       - name: Autoincrement version
+        shell: pwsh
         run: |
-          ${{ inputs.autoincrementscript }} -versionFile '.\${{ inputs.versionFile }}' -branch ${{ env.branch }}
+          ${{ inputs.autoincrementscript }} -versionFile './${{ inputs.versionFile }}' -branch ${{ env.branch }}
       - name: Fetch current version
         shell: bash
         run: |
@@ -34,4 +35,8 @@ runs:
           csproj: ${{ inputs.csproj }}
           version: ${{ github.run_number }} # to keep value unique
           displayVersion: ${{ env.AppVersion }}
-          printFile: false    
+          printFile: false   
+      - name: Install AppCenter Cli
+        shell: bash
+        run: |
+          npm install --location=global appcenter-cli                
