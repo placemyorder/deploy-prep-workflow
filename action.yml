@@ -1,0 +1,37 @@
+name: 'App Deployment Prep'
+description: 'Prepare for app deployment'
+inputs:
+  autoincrementscript:
+    description: 'Path of the autoincrementscript'
+    required: true
+    default: './deploy/scripts/autoincrementversion.ps1'
+  versionFile:
+    description: 'name of the version file'
+    required: true
+    default: 'version.txt'    
+  csproj:
+    description: 'Path of the csproj file'
+    required: true
+    default: './placemyorder/placemyorder.csproj'      
+runs:
+  using: "composite"
+  steps:
+      - name: Extract branch name
+        shell: bash
+        run: |
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV    
+      - name: Autoincrement version
+        run: |
+          ${{ inputs.autoincrementscript }} -versionFile '.\${{ inputs.versionFile }}' -branch ${{ env.branch }}
+      - name: Fetch current version
+        shell: bash
+        run: |
+          VER=$(cat ${{ inputs.versionFile }})
+          echo "AppVersion=$VER" >> $GITHUB_ENV
+      - name: Version the App
+        uses: managedcode/MAUIAppVersion@v1     
+        with:
+          csproj: ${{ inputs.csproj }}
+          version: ${{ github.run_number }} # to keep value unique
+          displayVersion: ${{ env.AppVersion }}
+          printFile: false    
