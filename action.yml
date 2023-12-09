@@ -18,7 +18,7 @@ runs:
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV    
       - name: Autoincrement version
         shell: pwsh
-        run: ./autoincrementversion.ps1 -versionFile ${{ inputs.versionFile }} -branch ${{ env.branch }}
+        run: ./deploy/script/autoincrementversion.ps1 -versionFile ${{ inputs.versionFile }} -branch ${{ env.branch }}
       - name: Fetch current version
         shell: bash
         run: |
