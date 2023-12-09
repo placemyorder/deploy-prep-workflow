@@ -1,10 +1,6 @@
 name: 'App Deployment Prep'
 description: 'Prepare for app deployment'
 inputs:
-  autoincrementscript:
-    description: 'Path of the autoincrementscript'
-    required: true
-    default: './deploy/scripts/autoincrementversion.ps1'
   versionFile:
     description: 'name of the version file'
     required: true
@@ -23,7 +19,7 @@ runs:
       - name: Autoincrement version
         shell: pwsh
         run: |
-          ${{ inputs.autoincrementscript }} -versionFile './${{ inputs.versionFile }}' -branch ${{ env.branch }}
+          ./autoincremenversion.ps1 -versionFile './${{ inputs.versionFile }}' -branch ${{ env.branch }}
       - name: Fetch current version
         shell: bash
         run: |
