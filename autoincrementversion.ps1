@@ -4,6 +4,8 @@ param(
     [parameter(Mandatory=$true)]
     [String]$versionFile
 )
+Write-Host "Branch: $branch"
+Write-Host "Version File: $versionFile"
 $fileVersion = [version](Get-Content $versionFile)
 $stringArray = $branch.ToString().Split("/")
 $major = $fileVersion.Major
