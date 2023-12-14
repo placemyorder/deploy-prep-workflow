@@ -8,18 +8,18 @@ inputs:
   csproj:
     description: 'Path of the csproj file'
     required: true
-    default: './placemyorder/placemyorder.csproj'      
+    default: './placemyorder/placemyorder.csproj' 
+  branch:
+    description: 'Branch name'
+    required: true
+    default: 'master'     
 runs:
   using: "composite"
-  steps:
-      - name: Extract branch name
-        shell: bash
-        run: |
-          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV    
+  steps:  
       - name: Autoincrement version
         shell: pwsh
         run: |          
-          ./deploy/scripts/autoincrementversion.ps1 -versionFile ${{ inputs.versionFile }} -branch ${{ env.branch }}
+          ./deploy/scripts/autoincrementversion.ps1 -versionFile ${{ inputs.versionFile }} -branch ${{ inputs.branch }}
           Set-Location ${{ github.workspace }}
       - name: Fetch current version
         shell: bash
