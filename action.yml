@@ -36,4 +36,4 @@ runs:
       - name: Install AppCenter Cli
         shell: bash
         run: |
-          npm install --location=global appcenter-cli                
+          npm install --location=global appcenter-cli@v2.14.0              
