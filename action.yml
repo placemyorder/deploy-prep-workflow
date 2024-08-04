@@ -33,7 +33,7 @@ runs:
           version: ${{ github.run_number }} # to keep value unique
           displayVersion: ${{ env.AppVersion }}
           printFile: false   
-      - name: Install AppCenter Cli
+      - name: Install Firebase Cli
         shell: bash
         run: |
-          npm install --location=global appcenter-cli@v2.14.0              
+          npm install -g firebase-tools            
