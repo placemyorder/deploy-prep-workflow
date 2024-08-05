@@ -27,7 +27,7 @@ runs:
           VER=$(cat ${{ inputs.versionFile }})
           echo "AppVersion=$VER" >> $GITHUB_ENV
       - name: Version the App
-        uses: managedcode/MAUIAppVersion@v1     
+        uses: managedcode/MAUIAppVersion@v1.1.0
         with:
           csproj: ${{ inputs.csproj }}
           version: ${{ github.run_number }} # to keep value unique
