@@ -4,7 +4,7 @@ inputs:
   versionFile:
     description: 'name of the version file'
     required: true
-    default: 'version.txt'    
+    default: './version.txt'    
   csproj:
     description: 'Path of the csproj file'
     required: true
@@ -17,10 +17,10 @@ runs:
   using: "composite"
   steps:  
       - name: Autoincrement version
-        shell: pwsh
-        run: |          
-          ./deploy/scripts/autoincrementversion.ps1 -versionFile ${{ inputs.versionFile }} -branch ${{ inputs.branch }}
-          Set-Location ${{ github.workspace }}
+        uses: placemyorder/autoincrementversion@v1.0.0
+        with:
+          branch: ${{ inputs.branch }}
+          versionfile: ${{ inputs.versionFile }}
       - name: Fetch current version
         shell: bash
         run: |
