@@ -17,7 +17,7 @@ runs:
   using: "composite"
   steps:  
       - name: Autoincrement version
-        uses: placemyorder/autoincrementversion@v1.0.0
+        uses: placemyorder/autoincrementversion@v1.1.0
         with:
           branch: ${{ inputs.branch }}
           versionfile: ${{ inputs.versionFile }}
